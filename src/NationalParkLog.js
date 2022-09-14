@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Route, Routes } from "react-router-dom"
 import { Login } from "./components/auth/Login"
 import { Register } from "./components/auth/Register"
+import { NavBar } from "./components/nav/NavBar"
 // import { NavBar } from "./components/nav/NavBar"
 import { ApplicationViews } from "./components/views/ApplicationViews"
 import { Authorized } from "./components/views/Authorized"
@@ -25,18 +26,20 @@ export const NationalParkLog = () => {
         localStorage.setItem('is_staff', isStaffBoolean)
         setStaffBool(isStaffBoolean)
     }
-    return <Routes>
+    return( <>
+        <NavBar token={token} setToken={setToken}/>
+
+        <Routes>
         <Route path="/login" element={<Login setToken={setToken} setUserId={setUserId} setStaffBool={setIsStaff} />} />
         <Route path="/register" element={<Register setToken={setToken} setUserId={setUserId} setStaffBool={setIsStaff}  />} />
 
-        <Route path="*" element={
-            <Authorized>
-                <>
-                    {/* <NavBar/> */}
-                    <ApplicationViews />
-                </>
-            </Authorized>
+        <Route  element={
+            <Authorized token={token}/>}></Route>
+                    <Route element={<NavBar/>}/>
+                    
+                    <Route path='*' element={<ApplicationViews/> }/>
 
-        } />
+        < Route />
     </Routes>
+    </>)
 }

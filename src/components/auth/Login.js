@@ -22,7 +22,7 @@ export const Login = ({ setToken, setUserId, setStaffBool }) => {
                 setToken(res.token)
                 setUserId(res.user_id)
                 setStaffBool(res.is_staff)
-                navigate("/posts")
+                navigate("/parks")
             }
             else {
                 setIsUnsuccessful(true)
