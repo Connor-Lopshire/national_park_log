@@ -20,6 +20,8 @@ export const VisitedParkCard = ({ parks }) => {
                 <div className="media-content">
                     <p className="title is-4">{park?.park?.full_name}</p>
                     <p className="subtitle is-6">{park?.park?.state}</p>
+                    <p className="subtitle is-6">{park?.date}</p>
+
                 </div>
             </div>
 
