@@ -43,10 +43,10 @@ export const ParkCard = ({ parks }) => {
                                 setActive(true)
                                 setCurrentPark(park.id)
 
-                            }}>Add Visit</button>
+                            }}>Add Another Visit</button>
 
                         }
-                        
+
 
                         <button className="button " onClick={(evt) => {
                             evt.preventDefault()
@@ -62,41 +62,41 @@ export const ParkCard = ({ parks }) => {
         })
         }
         <div className={`modal ${active ? "is-active" : ""}`} >
-                            <div className="modal-background"></div>
-                            <div className="modal-content">
-                                <form>
-                                    <div className="field mt-6">
-                                        <label className="label"> Visited Date:</label>
-                                        <div className="control">
-                                            <input
-                                                required autoFocus
-                                                type="date"
-                                                step="any"
-                                                className="input is-rounded"
-                                                placeholder="visitDate"
-                                                value={date}
-                                                onChange={
-                                                    (evt) => {
+            <div className="modal-background"></div>
+            <div className="modal-content">
+                <form>
+                    <div className="field mt-6">
+                        <label className="label"> Visited Date:</label>
+                        <div className="control">
+                            <input
+                                required autoFocus
+                                type="date"
+                                step="any"
+                                className="input is-rounded"
+                                placeholder="visitDate"
+                                value={date}
+                                onChange={
+                                    (evt) => {
 
-                                                        setDate(evt.target.value)
+                                        setDate(evt.target.value)
 
 
-                                                    }} />
-                                        </div>
-                                        <button className='button' onClick={(evt) => {
-                                            evt.preventDefault()
-                                            return addToVisitedList(currentPark, { date: date }).then(setActive(false))
-                                        }}>submit</button>
-                                        <button className="button"  onClick={(evt) => {
-                                            evt.preventDefault()
-                                            setActive(false)
-                                        }} >Cancel</button>
-                                    </div>
-                                </form>
-
-                            </div>
-
+                                    }} />
                         </div>
+                        <button className='button' onClick={(evt) => {
+                            evt.preventDefault()
+                            return addToVisitedList(currentPark, { date: date }).then(setActive(false))
+                        }}>submit</button>
+                        <button className="button" onClick={(evt) => {
+                            evt.preventDefault()
+                            setActive(false)
+                        }} >Cancel</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
     </section>
 }
 

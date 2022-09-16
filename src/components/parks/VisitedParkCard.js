@@ -1,4 +1,10 @@
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { addToBucketList, addToVisitedList, getAllParks } from "../managers/ParkManager"
 export const VisitedParkCard = ({ parks }) => {
+    const [date, setDate] = useState()
+    const [active, setActive] = useState(false)
+    const [currentPark, setCurrentPark] = useState()
     return <section>
 
     { parks.map(park => {
@@ -26,18 +32,72 @@ export const VisitedParkCard = ({ parks }) => {
             </div>
 
             <div className="content">
-            { park.visited = false ?
-                <button className="button">Visited</button>
-                :
-                <button className="button">Add Visit</button>
+                        {park.visited == false ?
+                            <button className="button" onClick={(evt) => {
+                                evt.preventDefault()
+                                setActive(true)
+                                setCurrentPark(park.id)
+                            }} >Log Visit</button>
+                            :
+                            <button className="button" onClick={(evt) => {
+                                evt.preventDefault()
+                                setActive(true)
+                                setCurrentPark(park.id)
 
-                }
-                <button className="button ">Bucket List</button>
+                            }}>Add Another Visit</button>
+
+                        }
+                        
+
+                        <button className="button " onClick={(evt) => {
+                            evt.preventDefault()
+                            return addToBucketList(park.id)
+                        }}>Bucket List</button>
+                        <Link to={`/parks/${park.park.id}`} >
+                            <button className="button ">Information</button>
+                        </Link>
+
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
         })
-    }
+        }
+        <div className={`modal ${active ? "is-active" : ""}`} >
+                            <div className="modal-background"></div>
+                            <div className="modal-content">
+                                <form>
+                                    <div className="field mt-6">
+                                        <label className="label"> Visited Date:</label>
+                                        <div className="control">
+                                            <input
+                                                required autoFocus
+                                                type="date"
+                                                step="any"
+                                                className="input is-rounded"
+                                                placeholder="visitDate"
+                                                value={date}
+                                                onChange={
+                                                    (evt) => {
+
+                                                        setDate(evt.target.value)
+
+
+                                                    }} />
+                                        </div>
+                                        <button className='button' onClick={(evt) => {
+                                            evt.preventDefault()
+                                            return addToVisitedList(currentPark, { date: date }).then(setActive(false))
+                                        }}>submit</button>
+                                        <button className="button"  onClick={(evt) => {
+                                            evt.preventDefault()
+                                            setActive(false)
+                                        }} >Cancel</button>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
     </section>
 } 
 

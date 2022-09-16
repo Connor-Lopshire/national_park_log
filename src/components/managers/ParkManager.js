@@ -53,3 +53,38 @@ export const addToVisitedList = (park_id, date) => {
     })
         .then(res => res.json())
 }
+export const addParkReview = (park_id, content) => {
+    return fetch(`http://localhost:8000/reviews/${park_id}/add_review`, {
+        method: "POST",
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(content)
+
+    })
+        .then(res => res.json())
+}
+export const deleteParkReview = (review_id) => {
+    
+    return fetch(`http://localhost:8000/reviews/${review_id}/delete_review`, {
+        method: "DELETE",
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`,
+            "Content-Type": "application/json"
+        }
+    })
+
+}
+export const editParkReview = (park_id, content) => {
+    return fetch(`http://localhost:8000/reviews/${park_id}/edit_review`, {
+        method: "PUT",
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(content)
+
+    })
+        .then(res => res.json())
+}
