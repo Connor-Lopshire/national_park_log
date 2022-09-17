@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { addToBucketList, addToVisitedList, getAllParks } from "../managers/ParkManager"
+import { addToBucketList, addToVisitedList, getAllParks, removeBucketList } from "../managers/ParkManager"
 export const ParkCard = ({ parks }) => {
     const [date, setDate] = useState()
     const [active, setActive] = useState(false)
     const [currentPark, setCurrentPark] = useState()
+    const [activeRemoveModal, setActiveRemoveModal] = useState(false)
+
 
     return <section>
 
@@ -47,11 +49,20 @@ export const ParkCard = ({ parks }) => {
 
                         }
 
+                        {park.in_bucket == false ?
 
-                        <button className="button " onClick={(evt) => {
-                            evt.preventDefault()
-                            return addToBucketList(park.id)
-                        }}>Bucket List</button>
+                            <button className="button " onClick={(evt) => {
+                                evt.preventDefault()
+                                return addToBucketList(park.id)
+                            }}> Add Bucket List</button> :
+                            <button className="button " onClick={(evt) => {
+                                evt.preventDefault()
+                                setCurrentPark(park.id)
+                                setActiveRemoveModal(true)
+                            }}>Remove Bucket List</button>
+                        }
+
+
                         <Link to={`/parks/${park.id}`} >
                             <button className="button ">Information</button>
                         </Link>
@@ -61,6 +72,7 @@ export const ParkCard = ({ parks }) => {
             </div>
         })
         }
+        {/* MODAL FOR VISIT DATE */}
         <div className={`modal ${active ? "is-active" : ""}`} >
             <div className="modal-background"></div>
             <div className="modal-content">
@@ -94,6 +106,23 @@ export const ParkCard = ({ parks }) => {
                     </div>
                 </form>
 
+            </div>
+
+        </div>
+          {/* MODAL FOR REMOVE FROM BUCKET LIST */}
+        <div className={`modal ${activeRemoveModal ? "is-active" : ""}`} >
+            <div className="modal-background"></div>
+            <div className="modal-content">
+                <div>Remove From Bucket List ?</div>
+                <button className='button' onClick={(evt) => {
+                    evt.preventDefault()
+                    removeBucketList(currentPark)
+                    setActiveRemoveModal(false)
+                }} >Remove</button>
+                <button className="button" onClick={(evt) => {
+                    evt.preventDefault()
+                    setActiveRemoveModal(false)
+                }} >Cancel</button>
             </div>
 
         </div>

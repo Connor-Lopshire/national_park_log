@@ -88,3 +88,13 @@ export const editParkReview = (park_id, content) => {
     })
         .then(res => res.json())
 }
+export const removeBucketList = (park_id) => {
+    
+    return fetch(`http://localhost:8000/parks/${park_id}/remove_bucket_list`, {
+        method: "DELETE",
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`,
+            "Content-Type": "application/json"
+        }
+    }) 
+}
