@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { addToBucketList, addToVisitedList, getAllParks, removeBucketList } from "../managers/ParkManager"
-export const VisitedParkCard = ({ parks }) => {
+import { addToBucketList, addToVisitedList, getAllParks, removeBucketList, removeVisit } from "../managers/ParkManager"
+export const VisitedParkCard = ({ parks, loadParks }) => {
     const [date, setDate] = useState()
     const [active, setActive] = useState(false)
     const [currentPark, setCurrentPark] = useState()
+    const [currentParkVisit, setCurrentParkVisit] = useState()
+
     const [activeRemoveModal, setActiveRemoveModal] = useState(false)
     return <section>
 
@@ -38,29 +40,28 @@ export const VisitedParkCard = ({ parks }) => {
                                 evt.preventDefault()
                                 setActive(true)
                                 setCurrentPark(park.park.id)
+                                loadParks()
                             }} >Log Visit</button>
                             :
-                            <button className="button" onClick={(evt) => {
-                                evt.preventDefault()
-                                setActive(true)
-                                setCurrentPark(park.park.id)
+                            <>
+                                <button className="button" onClick={(evt) => {
+                                    evt.preventDefault()
+                                    setActive(true)
+                                    setCurrentPark(park.park.id)
 
-                            }}>Add Another Visit</button>
+                                }}>Add Another Visit</button>
+                                <button className="button" onClick={(evt) => {
+                                    evt.preventDefault()
+                                    setActiveRemoveModal(true)
+                                    setCurrentParkVisit(park.id)
+
+
+                                }}>Remove Visit</button>
+                            </>
+
 
                         }
 
-                        {park.park.in_bucket == false ?
-
-                            <button className="button " onClick={(evt) => {
-                                evt.preventDefault()
-                                return addToBucketList(park.park.id)
-                            }}> Add Bucket List</button> :
-                            <button className="button " onClick={(evt) => {
-                                evt.preventDefault()
-                                setCurrentPark(park.park.id)
-                                setActiveRemoveModal(true) 
-                            }}>Remove Bucket List</button>
-}
 
                         <Link to={`/parks/${park.park.id}`} >
                             <button className="button ">Information</button>
@@ -96,7 +97,12 @@ export const VisitedParkCard = ({ parks }) => {
                         </div>
                         <button className='button' onClick={(evt) => {
                             evt.preventDefault()
-                            return addToVisitedList(currentPark, { date: date }).then(setActive(false))
+                            addToVisitedList(currentPark, { date: date }).then(() => {
+                                setActive(false)
+                                loadParks()
+                            })
+
+
                         }}>submit</button>
                         <button className="button" onClick={(evt) => {
                             evt.preventDefault()
@@ -108,15 +114,20 @@ export const VisitedParkCard = ({ parks }) => {
             </div>
 
         </div>
-        {/* MODAL FOR REMOVE FROM BUCKET LIST */}
+        {/* MODAL FOR REMOVE FROM Visited LIST */}
         <div className={`modal ${activeRemoveModal ? "is-active" : ""}`} >
             <div className="modal-background"></div>
             <div className="modal-content">
-                <div>Remove From Bucket List ?</div>
+                <div>Remove Visit ?</div>
                 <button className='button' onClick={(evt) => {
                     evt.preventDefault()
-                    removeBucketList(currentPark)
-                    setActiveRemoveModal(false)
+                    removeVisit(currentParkVisit).then(() => {
+                        setActiveRemoveModal(false)
+                        loadParks()
+                    }
+                    )
+
+
                 }} >Remove</button>
                 <button className="button" onClick={(evt) => {
                     evt.preventDefault()

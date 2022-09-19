@@ -18,11 +18,11 @@ export const BucketList = () => {
     return (<section className="section">
         <article className="panel is-info">
             <p className="panel-heading">
-                National Parks
+               Bucket List National Parks
             </p>
 
             <div className="panel-block">
-                <ParkCard parks={parks} />
+                <ParkCard parks={parks} loadParks={loadParks}/>
             </div>
         </article>
     </section>)

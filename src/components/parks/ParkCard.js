@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import { addToBucketList, addToVisitedList, getAllParks, removeBucketList } from "../managers/ParkManager"
-export const ParkCard = ({ parks }) => {
+import { Link, useNavigate } from "react-router-dom"
+import { addParkReview, addToBucketList, addToVisitedList, getAllParks, removeBucketList } from "../managers/ParkManager"
+export const ParkCard = ({ parks, loadParks }) => {
     const [date, setDate] = useState()
     const [active, setActive] = useState(false)
     const [currentPark, setCurrentPark] = useState()
     const [activeRemoveModal, setActiveRemoveModal] = useState(false)
+    const [activeReviewModal, setActiveReviewModal] = useState(false)
+    const [review, setReview] = useState()
+    const navigate = useNavigate()
 
 
     return <section>
@@ -39,13 +42,21 @@ export const ParkCard = ({ parks }) => {
                                 setActive(true)
                                 setCurrentPark(park.id)
                             }} >Log Visit</button>
-                            :
-                            <button className="button" onClick={(evt) => {
-                                evt.preventDefault()
-                                setActive(true)
-                                setCurrentPark(park.id)
+                            : <>
+                                <button className="button" onClick={(evt) => {
+                                    evt.preventDefault()
+                                    setActive(true)
+                                    setCurrentPark(park.id)
 
-                            }}>Add Another Visit</button>
+                                }}>Add Another Visit</button>
+                                <button className="button" onClick={(evt) => {
+                                    evt.preventDefault()
+                                    setActiveReviewModal(true)
+                                    setCurrentPark(park.id)
+
+                                }}>Add Review</button>
+                            </>
+
 
                         }
 
@@ -53,12 +64,14 @@ export const ParkCard = ({ parks }) => {
 
                             <button className="button " onClick={(evt) => {
                                 evt.preventDefault()
-                                return addToBucketList(park.id)
+                                addToBucketList(park.id)
+                                loadParks()
                             }}> Add Bucket List</button> :
                             <button className="button " onClick={(evt) => {
                                 evt.preventDefault()
                                 setCurrentPark(park.id)
                                 setActiveRemoveModal(true)
+
                             }}>Remove Bucket List</button>
                         }
 
@@ -97,7 +110,12 @@ export const ParkCard = ({ parks }) => {
                         </div>
                         <button className='button' onClick={(evt) => {
                             evt.preventDefault()
-                            return addToVisitedList(currentPark, { date: date }).then(setActive(false))
+                            addToVisitedList(currentPark, { date: date }).then((res)=>{
+                                setActive(false)    
+                                loadParks()
+                            })
+                            
+
                         }}>submit</button>
                         <button className="button" onClick={(evt) => {
                             evt.preventDefault()
@@ -109,20 +127,63 @@ export const ParkCard = ({ parks }) => {
             </div>
 
         </div>
-          {/* MODAL FOR REMOVE FROM BUCKET LIST */}
+        {/* MODAL FOR REMOVE FROM BUCKET LIST */}
         <div className={`modal ${activeRemoveModal ? "is-active" : ""}`} >
             <div className="modal-background"></div>
             <div className="modal-content">
                 <div>Remove From Bucket List ?</div>
                 <button className='button' onClick={(evt) => {
                     evt.preventDefault()
-                    removeBucketList(currentPark)
-                    setActiveRemoveModal(false)
+                    removeBucketList(currentPark).then(() => {
+                        setActiveRemoveModal(false)
+                    loadParks()
+                    })
                 }} >Remove</button>
                 <button className="button" onClick={(evt) => {
                     evt.preventDefault()
                     setActiveRemoveModal(false)
                 }} >Cancel</button>
+            </div>
+
+        </div>
+        {/* MODAL FOR ADDING Review  */}
+        <div className={`modal ${activeReviewModal ? "is-active" : ""}`} >
+            <div className="modal-background"></div>
+            <div className="modal-content">
+                <form>
+                    <div className="field mt-6">
+                        <label className="label"> Leave Review:</label>
+                        <div className="control">
+                            <input
+                                required autoFocus
+                                type="text"
+                                step="any"
+                                className="input is-rounded"
+                                placeholder="Review"
+                                value={review}
+                                onChange={
+                                    (evt) => {
+
+                                        setReview(evt.target.value)
+
+
+                                    }} />
+                        </div>
+                        <button className='button' onClick={(evt) => {
+                            evt.preventDefault()
+                            addParkReview(currentPark, { content: review }).then(() => {
+                            setActiveReviewModal(false)
+                            navigate(`/parks/${currentPark}`)
+                            }
+                            )
+                        }}>submit</button>
+                        <button className="button" onClick={(evt) => {
+                            evt.preventDefault()
+                            setActiveReviewModal(false)
+                        }} >Cancel</button>
+                    </div>
+                </form>
+
             </div>
 
         </div>

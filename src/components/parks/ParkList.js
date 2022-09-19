@@ -23,7 +23,7 @@ export const ParkList = () => {
             </p>
 
             <div className="panel-block">
-                <ParkCard parks={parks} />
+                <ParkCard parks={parks} loadParks={loadParks} />
             </div>
         </article>
     </section>)

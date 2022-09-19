@@ -19,11 +19,11 @@ export const VisitedParks = () => {
     return (<section className="section">
         <article className="panel is-info">
             <p className="panel-heading">
-                National Parks
+               Visited National Parks
             </p>
 
             <div className="panel-block">
-                <VisitedParkCard parks={parks} />
+                <VisitedParkCard parks={parks} loadParks={loadParks} />
             </div>
         </article>
     </section>)
