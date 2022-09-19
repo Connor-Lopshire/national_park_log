@@ -24,7 +24,7 @@ export const ParkDetailsContainer = () => {
     return <div className="card">
     <ParkImageCarousel images={park?.images} />
     <ParkDetails addresses={park?.addresses} url={park?.url} full_name={park?.full_name} description={park?.description} designation={park.designation} />
-    <ParkReview reviews={park?.reviews} visited={park?.visited} park={park.id}/>
+    <ParkReview reviews={park?.reviews} visited={park?.visited} park={park.id} loadPark={loadPark}/>
 
 
 

@@ -51,7 +51,6 @@ export const addToVisitedList = (park_id, date) => {
         body: JSON.stringify(date)
 
     })
-        .then(res => res.json())
 }
 export const addParkReview = (park_id, content) => {
     return fetch(`http://localhost:8000/reviews/${park_id}/add_review`, {
@@ -63,7 +62,6 @@ export const addParkReview = (park_id, content) => {
         body: JSON.stringify(content)
 
     })
-        .then(res => res.json())
 }
 export const deleteParkReview = (review_id) => {
     
@@ -86,5 +84,24 @@ export const editParkReview = (park_id, content) => {
         body: JSON.stringify(content)
 
     })
-        .then(res => res.json())
+}
+export const removeBucketList = (park_id) => {
+    
+    return fetch(`http://localhost:8000/parks/${park_id}/remove_bucket_list`, {
+        method: "DELETE",
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`,
+            "Content-Type": "application/json"
+        }
+    }) 
+}
+export const removeVisit = (visited_park_id) => {
+    
+    return fetch(`http://localhost:8000/parks/${visited_park_id}/remove_visit`, {
+        method: "DELETE",
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("auth_token")}`,
+            "Content-Type": "application/json"
+        }
+    }) 
 }

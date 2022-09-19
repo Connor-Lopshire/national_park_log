@@ -4,7 +4,7 @@ import { useState } from "react"
 import { addParkReview, deleteParkReview, editParkReview } from "../managers/ParkManager"
 
 //   render park.review.content review.user.username and if current user.id = review.user_id render edit and delete buttons
-export const ParkReview = ({ reviews, visited, park }) => {
+export const ParkReview = ({ reviews, visited, park, loadPark }) => {
     const [review, setReview] = useState()
     const [active, setActive] = useState(false)
     const [activeDeleteModal, setActiveDeleteModal] = useState(false)
@@ -35,11 +35,14 @@ export const ParkReview = ({ reviews, visited, park }) => {
                                 evt.preventDefault()
                                 setActiveReviewModal(true)
                                 setCurrentReview(review.id)
+                                setReview(review.content)
+
                             }}>Edit </button>
                             <button onClick={(evt) => {
                                 evt.preventDefault()
                                 setActiveDeleteModal(true)
                                 setCurrentReview(review.id)
+                                
                             }}> Delete</button>
 
                         </div> :
@@ -51,7 +54,7 @@ export const ParkReview = ({ reviews, visited, park }) => {
             })
 
         }
-        {/* MODAL FOR ADDING AND EDITING REVIEW */}
+        {/* MODAL FOR ADDING Review  */}
         <div className={`modal ${active ? "is-active" : ""}`} >
             <div className="modal-background"></div>
             <div className="modal-content">
@@ -76,7 +79,7 @@ export const ParkReview = ({ reviews, visited, park }) => {
                         </div>
                         <button className='button' onClick={(evt) => {
                             evt.preventDefault()
-                            return addParkReview(park, { content: review }).then(setActive(false))
+                            return addParkReview(park, { content: review }).then(setActive(false)).then(loadPark())
                         }}>submit</button>
                         <button className="button" onClick={(evt) => {
                             evt.preventDefault()
@@ -92,10 +95,10 @@ export const ParkReview = ({ reviews, visited, park }) => {
         <div className={`modal ${activeDeleteModal ? "is-active" : ""}`} >
             <div className="modal-background"></div>
             <div className="modal-content">
-                <div>Delete Comment ?</div>
+                <div>Delete Review ?</div>
                 <button className='button' onClick={(evt) => {
                     evt.preventDefault()
-                    return deleteParkReview(currentReview).then(setActiveDeleteModal(false))
+                    return deleteParkReview(currentReview).then(setActiveDeleteModal(false)).then(loadPark())
                 }} >Delete</button>
                 <button className="button" onClick={(evt) => {
                     evt.preventDefault()
@@ -129,7 +132,7 @@ export const ParkReview = ({ reviews, visited, park }) => {
                         </div>
                         <button className='button' onClick={(evt) => {
                             evt.preventDefault()
-                            return editParkReview(currentReview, { content: review } ).then(setActiveReviewModal(false))
+                            return editParkReview(currentReview, { content: review } ).then(setActiveReviewModal(false)).then(loadPark())
                         }}>submit</button>
                         <button className="button" onClick={(evt) => {
                             evt.preventDefault()
