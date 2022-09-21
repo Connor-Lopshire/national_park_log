@@ -21,9 +21,9 @@ export const ParkDetailsContainer = () => {
         loadPark()
     }, [])
 
-    return <div className="card">
-    <ParkImageCarousel images={park?.images} />
-    <ParkDetails addresses={park?.addresses} url={park?.url} full_name={park?.full_name} description={park?.description} designation={park.designation} />
+    return <div>
+    <ParkImageCarousel  images={park?.images} />
+    <ParkDetails park_id={park.id} addresses={park?.addresses} url={park?.url} full_name={park?.full_name} description={park?.description} designation={park.designation} in_bucket={park.in_bucket} visited={park.visited} loadPark={loadPark}/>
     <ParkReview reviews={park?.reviews} visited={park?.visited} park={park.id} loadPark={loadPark}/>
 
 

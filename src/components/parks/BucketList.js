@@ -18,7 +18,7 @@ export const BucketList = () => {
     return (<section className="section">
         <article className="panel is-info">
             <p className="panel-heading">
-               Bucket List National Parks
+            Bucket List National Parks
             </p>
 
             <div className="panel-block">

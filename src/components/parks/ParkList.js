@@ -7,6 +7,7 @@
 import { useEffect, useState } from "react"
 import { getAllParks } from "../managers/ParkManager"
 import { ParkCard } from "./ParkCard"
+import { ParkSearch } from "./ParkSearch"
 export const ParkList = () => {
     const [parks, setParks] = useState([])
     const [previous, setPrevious] = useState()
@@ -14,7 +15,7 @@ export const ParkList = () => {
     const [link, setLink] = useState(null)
 
 
-    const loadParks = (link) => getAllParks(link).then(data => {
+    const loadParks = (link, q, state) => getAllParks(link, q, state).then(data => {
         setParks(data.results)
         setPrevious(data.previous)
         setNext(data.next)
@@ -26,6 +27,7 @@ export const ParkList = () => {
 
     return (<section className="section">
         <article className="panel is-info">
+                <ParkSearch setParks={setParks} loadParks={loadParks}/>
             <p className="panel-heading">
                 National Parks
             </p>
