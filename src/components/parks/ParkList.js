@@ -9,11 +9,19 @@ import { getAllParks } from "../managers/ParkManager"
 import { ParkCard } from "./ParkCard"
 export const ParkList = () => {
     const [parks, setParks] = useState([])
-    
-    const loadParks = () => getAllParks().then(data => setParks(data))
+    const [previous, setPrevious] = useState()
+    const [next, setNext] = useState()
+    const [link, setLink] = useState(null)
+
+
+    const loadParks = (link) => getAllParks(link).then(data => {
+        setParks(data.results)
+        setPrevious(data.previous)
+        setNext(data.next)
+    })
 
     useEffect(() => {
-        loadParks()
+        loadParks(link)
     }, [])
 
     return (<section className="section">
@@ -26,6 +34,26 @@ export const ParkList = () => {
                 <ParkCard parks={parks} loadParks={loadParks} />
             </div>
         </article>
+        {previous == null ?
+
+            <button onClick={(evt) => {
+                evt.preventDefault()
+                loadParks(next)
+                
+                
+            }}>Next </button>
+            :
+            <>
+                <button onClick={(evt) => {
+                    evt.preventDefault()
+                    loadParks(next)
+                }}>Next </button>
+                <button onClick={(evt) => {
+                    evt.preventDefault()
+                    loadParks(previous)
+                }}>previous </button>
+            </>
+        }
     </section>)
 }
-    
+
