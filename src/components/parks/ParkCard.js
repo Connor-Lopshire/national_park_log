@@ -24,11 +24,7 @@ export const ParkCard = ({ parks, loadParks }) => {
                 </div>
                 <div className="card-content">
                     <div className="media">
-                        <div className="media-left">
-                            <figure className="image is-48x48">
-                                <img src={park?.images[0]?.url} alt="Placeholder image" />
-                            </figure>
-                        </div>
+                        
                         <div className="media-content">
                             <p className="title is-4">{park.full_name}</p>
                             <p className="subtitle is-6">{park.state}</p>

@@ -1,6 +1,6 @@
-export const getAllParks = (link='http://localhost:8000/parks?limit=15&offset=0') => {
+export const getAllParks = (link='http://localhost:8000/parks?limit=15&offset=0', q='', state = '') => {
    
-    return fetch(`${link == null ? 'http://localhost:8000/parks?limit=15&offset=0' : `${link}`}`, {
+    return fetch(`${link == null ? `http://localhost:8000/parks?limit=15&offset=0&q=${q}&state=${state}` : `${link}&q=${q}&state=${state}`}`, {
         headers: {
             'Authorization': `Token ${localStorage.getItem('auth_token')}`
         }
@@ -105,4 +105,12 @@ export const removeVisit = (visited_park_id) => {
             "Content-Type": "application/json"
         }
     }) 
+}
+export const getStates = () => {
+    return fetch("http://localhost:8000/parks/get_states", {
+        headers: {
+            'Authorization': `Token ${localStorage.getItem('auth_token')}`
+        }
+    })
+        .then(res => res.json())
 }
