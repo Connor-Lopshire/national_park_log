@@ -1,5 +1,6 @@
-export const getAllParks = () => {
-    return fetch("http://localhost:8000/parks", {
+export const getAllParks = (link='http://localhost:8000/parks?limit=15&offset=0') => {
+   
+    return fetch(`${link == null ? 'http://localhost:8000/parks?limit=15&offset=0' : `${link}`}`, {
         headers: {
             'Authorization': `Token ${localStorage.getItem('auth_token')}`
         }
