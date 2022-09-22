@@ -57,7 +57,7 @@ export const ParkDetails = ({ addresses, url, full_name, description, designatio
 
             <div className="content">{description}</div>
             <div>{designation}</div>
-            <div className='content'>{url}</div>
+            <a className='content' href={url}>{url}</a>
         </div>
         <div className="content">
             {visited == false ?
