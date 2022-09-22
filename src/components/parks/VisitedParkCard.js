@@ -32,7 +32,7 @@ export const VisitedParkCard = ({ parks, loadParks }) => {
             progress: undefined,
             });
     }
-    return <section>
+    return <section className="park_container">
 
         {parks.map(park => {
 
@@ -73,7 +73,7 @@ export const VisitedParkCard = ({ parks, loadParks }) => {
                                     evt.preventDefault()
                                     setActive(true)
                                     setCurrentPark(park.park.id)
-                                    notifyVisitedListAdd()
+                                    
 
                                 }}>Add Another Visit</button>
                                 <button className="button" onClick={(evt) => {
@@ -126,6 +126,7 @@ export const VisitedParkCard = ({ parks, loadParks }) => {
                             addToVisitedList(currentPark, { date: date }).then(() => {
                                 setActive(false)
                                 loadParks()
+                                notifyVisitedListAdd()
                             })
 
 

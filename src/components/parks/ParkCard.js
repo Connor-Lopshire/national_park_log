@@ -45,7 +45,7 @@ export const ParkCard = ({ parks, loadParks }) => {
             progress: undefined,
             });
     }
-    return <section>
+    return <section className="park_container">
 
         {parks.map(park => {
 
