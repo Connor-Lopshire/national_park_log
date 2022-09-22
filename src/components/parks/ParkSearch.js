@@ -17,7 +17,7 @@ export const ParkSearch = ({ setParks, loadParks }) => {
     useEffect(() => {
         loadStates()
     }, [])
-    return <section className="search">
+    return <section className="">
 
 
         <div className="field has-addons">
