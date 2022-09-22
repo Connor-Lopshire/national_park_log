@@ -4,7 +4,7 @@ import { getStates } from "../managers/ParkManager"
 export const ParkSearch = ({ setParks, loadParks }) => {
     const [searchTerms, setSearchTerms] = useState()
     const [stateSelected, setStateSelected] = useState()
-    const [states, setStates] = useState()
+    const [states, setStates] = useState([])
     useEffect(
         () => {
             if (searchTerms == '') {
@@ -12,7 +12,7 @@ export const ParkSearch = ({ setParks, loadParks }) => {
             } 
         }
     , [searchTerms])
-  
+
     const loadStates = () => getStates().then(data => setStates(data))
     useEffect(() => {
         loadStates()
@@ -44,19 +44,20 @@ export const ParkSearch = ({ setParks, loadParks }) => {
             </div>
         </div>
         <div className="select">
-            <select className="select" onChange={(event) => {
+            <select value={stateSelected} className="select" onChange={(event) => {
                 let chosenState = event.target.value 
                 setStateSelected(chosenState)
-                
+                loadParks(undefined, searchTerms, chosenState)
                 
             }}>
-                <option>Filter by State</option>
-                {/* {states.map((state) => {
+                <option value={0}>Filter by State</option>
+                {states.map((state) => {
                     return <option value={state?.state_code}>{state?.state_code}</option>
-                })} */}
+                })}
             </select>
         <button onClick={(evt) => {
-            setStateSelected(undefined)
+            setStateSelected(0)
+
             loadParks()
         }}>Reset Filter</button>
         </div>
