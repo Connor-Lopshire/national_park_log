@@ -37,7 +37,7 @@ export const VisitedParkCard = ({ parks, loadParks }) => {
         {parks.map(park => {
 
 
-            return <div className="card">
+            return <div className="card mt-6 mx-3">
                 <div className="card-image">
                     <figure className="image is-4by3">
                         <img src={park?.park?.images[0]?.url} alt={park?.park?.images[0]?.alt_text} />

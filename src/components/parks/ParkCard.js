@@ -50,7 +50,7 @@ export const ParkCard = ({ parks, loadParks }) => {
         {parks.map(park => {
 
 
-            return <div className="card">
+            return <div className="card mt-6 mx-3">
                 <div className="card-image">
                     <figure className="image is-4by3">
                         <img src={park?.images[0]?.url} alt={park?.images[0]?.alt_text} />
@@ -123,7 +123,7 @@ export const ParkCard = ({ parks, loadParks }) => {
             <div className="modal-content">
                 <form>
                     <div className="field mt-6">
-                        <label className="label"> Visited Date:</label>
+                        <label className="label has-text-white"> Visited Date:</label>
                         <div className="control">
                             <input
                                 required autoFocus
@@ -165,7 +165,7 @@ export const ParkCard = ({ parks, loadParks }) => {
         <div className={`modal ${activeRemoveModal ? "is-active" : ""}`} >
             <div className="modal-background"></div>
             <div className="modal-content">
-                <div>Remove From Bucket List ?</div>
+                <div className="has-text-white">Remove From Bucket List ?</div>
                 <button className='button' onClick={(evt) => {
                     evt.preventDefault()
                     removeBucketList(currentPark).then(() => {
@@ -187,7 +187,7 @@ export const ParkCard = ({ parks, loadParks }) => {
             <div className="modal-content">
                 <form>
                     <div className="field mt-6">
-                        <label className="label"> Leave Review:</label>
+                        <label className="label has-text-white"> Leave Review:</label>
                         <div className="control">
                             <input
                                 required autoFocus

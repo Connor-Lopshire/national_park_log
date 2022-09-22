@@ -27,10 +27,10 @@ export const ParkList = () => {
 
     return (<section className="section">
         <article className="panel is-info">
-                <ParkSearch setParks={setParks} loadParks={loadParks}/>
             <p className="panel-heading">
                 National Parks
             </p>
+                <ParkSearch setParks={setParks} loadParks={loadParks}/>
 
             <div className="panel-block">
                 <ParkCard parks={parks} loadParks={loadParks} />
@@ -38,7 +38,7 @@ export const ParkList = () => {
         </article>
         {previous == null ?
 
-            <button onClick={(evt) => {
+            <button className="button" onClick={(evt) => {
                 evt.preventDefault()
                 loadParks(next)
                 
@@ -46,11 +46,11 @@ export const ParkList = () => {
             }}>Next </button>
             :
             <>
-                <button onClick={(evt) => {
+                <button className="button" onClick={(evt) => {
                     evt.preventDefault()
                     loadParks(previous)
                 }}>Previous </button>
-                <button onClick={(evt) => {
+                <button className="button" onClick={(evt) => {
                     evt.preventDefault()
                     loadParks(next)
                 }}>Next </button>

@@ -13,32 +13,26 @@ export const ParkReview = ({ reviews, visited, park, loadPark }) => {
 
     const user = localStorage
 
-    return <div>
-        <h3>Reviews</h3>
+    return <div className="section">
+        <h3 className="is title">Reviews</h3>
 
-        {visited == true ?
-            <button onClick={(evt) => {
-                evt.preventDefault()
-                setActive(true)
-            }}>Leave Review</button> :
-            ""
-        }
+
         {
             reviews.map(review => {
-                return <div>
-                    <div>{review?.content}</div>
-                    <div>{review?.user?.username}</div>
+                return <div className="mt-3" >
+                    <div className="subtitle    ">{review?.content}</div>
+                    <div className="subtitle">{review?.user?.username}</div>
 
                     {review.author == true ?
                         <div>
-                            <button onClick={(evt) => {
+                            <button className="button" onClick={(evt) => {
                                 evt.preventDefault()
                                 setActiveReviewModal(true)
                                 setCurrentReview(review.id)
                                 setReview(review.content)
 
                             }}>Edit </button>
-                            <button onClick={(evt) => {
+                            <button className="button" onClick={(evt) => {
                                 evt.preventDefault()
                                 setActiveDeleteModal(true)
                                 setCurrentReview(review.id)
@@ -60,7 +54,7 @@ export const ParkReview = ({ reviews, visited, park, loadPark }) => {
             <div className="modal-content">
                 <form>
                     <div className="field mt-6">
-                        <label className="label"> Leave Review:</label>
+                        <label className="label has-text-white"> Leave Review:</label>
                         <div className="control">
                             <input
                                 required autoFocus

@@ -9,19 +9,17 @@ export const ParkSearch = ({ setParks, loadParks }) => {
         () => {
             if (searchTerms == '') {
                 loadParks(undefined)
-            } 
+            }
         }
-    , [searchTerms])
+        , [searchTerms])
 
     const loadStates = () => getStates().then(data => setStates(data))
     useEffect(() => {
         loadStates()
     }, [])
     return <section className="search">
-        <p className="panel-heading">
-            Search Parks
-        </p>
-        <br />
+
+
         <div className="field has-addons">
             <div className="control">
                 <input
@@ -33,34 +31,40 @@ export const ParkSearch = ({ setParks, loadParks }) => {
                     }
 
                     type="search" placeholder="Search post by title"
-                    className="input"
+                    className="input "
 
 
                 />
             </div>
+            <br />
             <div className="control">
                 {/* on click displays searched posts */}
-                <button className="button is-info" onClick={() => { loadParks(undefined, searchTerms, stateSelected) }}></button>
+                <button className="button is-info" onClick={() => { loadParks(undefined, searchTerms, stateSelected) }}>Search</button>
             </div>
-        </div>
-        <div className="select">
-            <select value={stateSelected} className="select" onChange={(event) => {
-                let chosenState = event.target.value 
-                setStateSelected(chosenState)
-                loadParks(undefined, searchTerms, chosenState)
-                
-            }}>
-                <option value={0}>Filter by State</option>
-                {states.map((state) => {
-                    return <option value={state?.state_code}>{state?.state_code}</option>
-                })}
-            </select>
-        <button onClick={(evt) => {
-            setStateSelected(0)
 
-            loadParks()
-        }}>Reset Filter</button>
-        </div>
+             
+
+                        <div className="select">
+
+                        <select value={stateSelected} className="select" onChange={(event) => {
+                            let chosenState = event.target.value
+                            setStateSelected(chosenState)
+                            loadParks(undefined, searchTerms, chosenState)
+                            
+                        }}>
+                            <option value={0}>Filter by State</option>
+                            {states.map((state) => {
+                                return <option value={state?.state_code}>{state?.state_code}</option>
+                            })}
+                        </select>
+                            </div>
+
+                        <button className="button" onClick={(evt) => {
+                            setStateSelected(0)
+
+                            loadParks()
+                        }}>Reset Filter</button>
+            </div>
 
 
     </section>

@@ -31,7 +31,7 @@ export const Register = ({ setToken, setUserId, setStaffBool }) => {
                         setToken(res.token)
                         setUserId(res.user_id)
                         setStaffBool(res.is_staff)
-                        navigate("/")
+                        navigate("/parks")
                     }
                 })
         } else {
