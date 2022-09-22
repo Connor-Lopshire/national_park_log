@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { addParkReview, addToBucketList, addToVisitedList, getAllParks, removeBucketList } from "../managers/ParkManager"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export const ParkCard = ({ parks, loadParks }) => {
+
     const [date, setDate] = useState()
     const [active, setActive] = useState(false)
     const [currentPark, setCurrentPark] = useState()
@@ -9,8 +12,39 @@ export const ParkCard = ({ parks, loadParks }) => {
     const [activeReviewModal, setActiveReviewModal] = useState(false)
     const [review, setReview] = useState()
     const navigate = useNavigate()
-
-
+    const notifyBucketListAdd = () => {
+        toast.success('Added to Bucket List!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+    }
+    const notifyVisitedListAdd = () => {
+        toast.success('Visit Logged!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+    }
+    const notifyBucketListRemove = () => {
+        toast.success('Removed from Bucket List!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+    }
     return <section>
 
         {parks.map(park => {
@@ -57,12 +91,14 @@ export const ParkCard = ({ parks, loadParks }) => {
                         }
 
                         {park.in_bucket == false ?
-
+                            <>
                             <button className="button " onClick={(evt) => {
                                 evt.preventDefault()
                                 addToBucketList(park.id)
                                 loadParks()
-                            }}> Add Bucket List</button> :
+                                notifyBucketListAdd()
+                            }}> Add Bucket List</button> 
+                            </>:
                             <button className="button " onClick={(evt) => {
                                 evt.preventDefault()
                                 setCurrentPark(park.id)
@@ -109,6 +145,7 @@ export const ParkCard = ({ parks, loadParks }) => {
                             addToVisitedList(currentPark, { date: date }).then((res)=>{
                                 setActive(false)    
                                 loadParks()
+                                notifyVisitedListAdd()
                             })
                             
 
@@ -116,6 +153,7 @@ export const ParkCard = ({ parks, loadParks }) => {
                         <button className="button" onClick={(evt) => {
                             evt.preventDefault()
                             setActive(false)
+                        
                         }} >Cancel</button>
                     </div>
                 </form>
@@ -133,6 +171,7 @@ export const ParkCard = ({ parks, loadParks }) => {
                     removeBucketList(currentPark).then(() => {
                         setActiveRemoveModal(false)
                     loadParks()
+                    notifyBucketListRemove()
                     })
                 }} >Remove</button>
                 <button className="button" onClick={(evt) => {

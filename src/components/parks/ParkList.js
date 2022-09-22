@@ -48,12 +48,12 @@ export const ParkList = () => {
             <>
                 <button onClick={(evt) => {
                     evt.preventDefault()
-                    loadParks(next)
-                }}>Next </button>
+                    loadParks(previous)
+                }}>Previous </button>
                 <button onClick={(evt) => {
                     evt.preventDefault()
-                    loadParks(previous)
-                }}>previous </button>
+                    loadParks(next)
+                }}>Next </button>
             </>
         }
     </section>)
