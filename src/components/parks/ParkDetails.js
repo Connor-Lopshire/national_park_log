@@ -3,7 +3,8 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { addParkReview, addToBucketList, addToVisitedList, removeBucketList } from "../managers/ParkManager"
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // will render park info full_name description designation addresses and url for nps site
 export const ParkDetails = ({ addresses, url, full_name, description, designation, park_id, in_bucket, visited, loadPark }) => {
     const [date, setDate] = useState()
@@ -12,10 +13,42 @@ export const ParkDetails = ({ addresses, url, full_name, description, designatio
     const [activeReviewModal, setActiveReviewModal] = useState(false)
     const [review, setReview] = useState()
     const navigate = useNavigate()
+    const notifyBucketListAdd = () => {
+        toast.success('Added to Bucket List!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+    }
+    const notifyVisitedListAdd = () => {
+        toast.success('Visit Logged!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+    }
+    const notifyBucketListRemove = () => {
+        toast.success('Removed from Bucket List!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+    }
+    return <section className="section">
 
-    return <section>
-
-        <div className="card">
+        <div className="" >
 
 
             <div className="title is-4">{full_name}</div>
@@ -54,6 +87,7 @@ export const ParkDetails = ({ addresses, url, full_name, description, designatio
                     evt.preventDefault()
                     addToBucketList(park_id)
                     loadPark()
+                    notifyBucketListAdd()
                 }}> Add Bucket List</button> :
                 <button className="button " onClick={(evt) => {
                     evt.preventDefault()
@@ -73,7 +107,7 @@ export const ParkDetails = ({ addresses, url, full_name, description, designatio
             <div className="modal-content">
                 <form>
                     <div className="field mt-6">
-                        <label className="label"> Visited Date:</label>
+                        <label className="label has-text-white"> Visited Date:</label>
                         <div className="control">
                             <input
                                 required autoFocus
@@ -95,6 +129,7 @@ export const ParkDetails = ({ addresses, url, full_name, description, designatio
                             addToVisitedList(park_id, { date: date }).then((res) => {
                                 setActive(false)
                                 loadPark()
+                                notifyVisitedListAdd()
                             })
 
 
@@ -113,12 +148,13 @@ export const ParkDetails = ({ addresses, url, full_name, description, designatio
         <div className={`modal ${activeRemoveModal ? "is-active" : ""}`} >
             <div className="modal-background"></div>
             <div className="modal-content">
-                <div>Remove From Bucket List ?</div>
+                <div className="has-text-white">Remove From Bucket List ?</div>
                 <button className='button' onClick={(evt) => {
                     evt.preventDefault()
                     removeBucketList(park_id).then(() => {
                         setActiveRemoveModal(false)
                         loadPark()
+                        notifyBucketListRemove()
                     })
                 }} >Remove</button>
                 <button className="button" onClick={(evt) => {
@@ -134,7 +170,7 @@ export const ParkDetails = ({ addresses, url, full_name, description, designatio
             <div className="modal-content">
                 <form>
                     <div className="field mt-6">
-                        <label className="label"> Leave Review:</label>
+                        <label className="label has-text-white"> Leave Review:</label>
                         <div className="control">
                             <input
                                 required autoFocus
@@ -155,7 +191,7 @@ export const ParkDetails = ({ addresses, url, full_name, description, designatio
                             evt.preventDefault()
                             addParkReview(park_id, { content: review }).then(() => {
                                 setActiveReviewModal(false)
-                               loadPark()
+                            loadPark()
                             }
                             )
                         }}>submit</button>
