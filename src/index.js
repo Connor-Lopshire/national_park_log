@@ -5,12 +5,26 @@ import reportWebVitals from './reportWebVitals';
 import { NationalParkLog } from './NationalParkLog';
 import { BrowserRouter } from 'react-router-dom';
 import 'bulma/css/bulma.css'
+import { ToastContainer, toast } from 'react-toastify';
 
 const container = document.getElementById("root")
 const root = createRoot(container)
 root.render(
   <BrowserRouter  >
     <NationalParkLog/>
+    <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
+{/* Same as */}
+<ToastContainer />
   </BrowserRouter>
 );
 

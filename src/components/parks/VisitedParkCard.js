@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { addToBucketList, addToVisitedList, getAllParks, removeBucketList, removeVisit } from "../managers/ParkManager"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export const VisitedParkCard = ({ parks, loadParks }) => {
     const [date, setDate] = useState()
     const [active, setActive] = useState(false)
@@ -8,6 +10,28 @@ export const VisitedParkCard = ({ parks, loadParks }) => {
     const [currentParkVisit, setCurrentParkVisit] = useState()
 
     const [activeRemoveModal, setActiveRemoveModal] = useState(false)
+    const notifyVisitedListAdd = () => {
+        toast.success('Visit Logged!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+    }
+    const notifyVisitedRemoved = () => {
+        toast.success('Visit Removed!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+    }
     return <section>
 
         {parks.map(park => {
@@ -41,6 +65,7 @@ export const VisitedParkCard = ({ parks, loadParks }) => {
                                 setActive(true)
                                 setCurrentPark(park.park.id)
                                 loadParks()
+                                notifyVisitedListAdd()
                             }} >Log Visit</button>
                             :
                             <>
@@ -48,6 +73,7 @@ export const VisitedParkCard = ({ parks, loadParks }) => {
                                     evt.preventDefault()
                                     setActive(true)
                                     setCurrentPark(park.park.id)
+                                    notifyVisitedListAdd()
 
                                 }}>Add Another Visit</button>
                                 <button className="button" onClick={(evt) => {
@@ -124,8 +150,11 @@ export const VisitedParkCard = ({ parks, loadParks }) => {
                     removeVisit(currentParkVisit).then(() => {
                         setActiveRemoveModal(false)
                         loadParks()
+                        notifyVisitedRemoved()
+                       
                     }
                     )
+                   
 
 
                 }} >Remove</button>
