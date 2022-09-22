@@ -89,7 +89,7 @@ export const ParkReview = ({ reviews, visited, park, loadPark }) => {
         <div className={`modal ${activeDeleteModal ? "is-active" : ""}`} >
             <div className="modal-background"></div>
             <div className="modal-content">
-                <div>Delete Review ?</div>
+                <div className="has-text-white">Delete Review ?</div>
                 <button className='button' onClick={(evt) => {
                     evt.preventDefault()
                     return deleteParkReview(currentReview).then(setActiveDeleteModal(false)).then(loadPark())
