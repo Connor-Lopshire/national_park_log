@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { addParkReview, addToBucketList, addToVisitedList, getAllParks, removeBucketList } from "../managers/ParkManager"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-export const ParkCard = ({ parks, loadParks }) => {
+export const ParkCard = ({ parks, loadParks, link }) => {
 
     const [date, setDate] = useState()
     const [active, setActive] = useState(false)
@@ -95,7 +95,7 @@ export const ParkCard = ({ parks, loadParks }) => {
                             <button className="button " onClick={(evt) => {
                                 evt.preventDefault()
                                 addToBucketList(park.id)
-                                loadParks()
+                                loadParks(link)
                                 notifyBucketListAdd()
                             }}> Add Bucket List</button> 
                             </>:
@@ -144,7 +144,7 @@ export const ParkCard = ({ parks, loadParks }) => {
                             evt.preventDefault()
                             addToVisitedList(currentPark, { date: date }).then((res)=>{
                                 setActive(false)    
-                                loadParks()
+                                loadParks(link)
                                 notifyVisitedListAdd()
                             })
                             
@@ -170,7 +170,7 @@ export const ParkCard = ({ parks, loadParks }) => {
                     evt.preventDefault()
                     removeBucketList(currentPark).then(() => {
                         setActiveRemoveModal(false)
-                    loadParks()
+                    loadParks(link)
                     notifyBucketListRemove()
                     })
                 }} >Remove</button>
