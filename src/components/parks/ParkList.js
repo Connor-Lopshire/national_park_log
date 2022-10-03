@@ -33,13 +33,14 @@ export const ParkList = () => {
                 <ParkSearch setParks={setParks} loadParks={loadParks}/>
 
             <div className="panel-block">
-                <ParkCard parks={parks} loadParks={loadParks} />
+                <ParkCard parks={parks} loadParks={loadParks} link={link}/>
             </div>
         </article>
         {previous == null ?
 
             <button className="button" onClick={(evt) => {
                 evt.preventDefault()
+                setLink(next)
                 loadParks(next)
                 
                 
@@ -48,10 +49,12 @@ export const ParkList = () => {
             <>
                 <button className="button" onClick={(evt) => {
                     evt.preventDefault()
+                    setLink(previous)
                     loadParks(previous)
                 }}>Previous </button>
                 <button className="button" onClick={(evt) => {
                     evt.preventDefault()
+                    setLink(next)
                     loadParks(next)
                 }}>Next </button>
             </>
