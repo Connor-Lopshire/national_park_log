@@ -28,7 +28,7 @@ export const ParkList = () => {
     return (<section className="section">
         <article className="panel is-info">
             <p className="panel-heading">
-                National Parks
+                National Park Service Areas
             </p>
                 <ParkSearch setParks={setParks} loadParks={loadParks}/>
 
