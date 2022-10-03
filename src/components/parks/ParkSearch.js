@@ -42,29 +42,28 @@ export const ParkSearch = ({ setParks, loadParks }) => {
                 <button className="button is-info" onClick={() => { loadParks(undefined, searchTerms, stateSelected) }}>Search</button>
             </div>
 
-             
 
-                        <div className="select">
 
-                        <select value={stateSelected} className="select" onChange={(event) => {
-                            let chosenState = event.target.value
-                            setStateSelected(chosenState)
-                            loadParks(undefined, searchTerms, chosenState)
-                            
-                        }}>
-                            <option value={0}>Filter by State</option>
-                            {states.map((state) => {
-                                return <option value={state?.state_code}>{state?.state_code}</option>
-                            })}
-                        </select>
-                            </div>
+            <div className="select">
 
-                        <button className="button" onClick={(evt) => {
-                            setStateSelected(0)
+                <select value={stateSelected} className="select" onChange={(event) => {
+                    let chosenState = event.target.value
+                    setStateSelected(chosenState)
+                    loadParks(undefined, searchTerms, chosenState)
 
-                            loadParks()
-                        }}>Reset Filter</button>
+                }}>
+                    <option value={0}>Filter by State</option>
+                    {states.map((state) => {
+                        return <option value={state?.state_code}>{state?.state_code}</option>
+                    })}
+                </select>
             </div>
+
+            <button className="button" onClick={(evt) => {
+                setStateSelected('')
+                loadParks()
+            }}>Reset Filter</button>
+        </div>
 
 
     </section>
