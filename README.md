@@ -18,3 +18,4 @@ React Django HTML CSS Bulma
 ## ERD & wireframe 
 -
 ## User Experience
+### Browse park and Add/Remove park from bucket list
