@@ -19,3 +19,8 @@ React Django HTML CSS Bulma
 -
 ## User Experience
 ### Browse park and Add/Remove park from bucket list
+### Log Visit
+### Filter by state & view park info 
+### log visit & leave review 
+### view visited parks 
+### view bucket list
