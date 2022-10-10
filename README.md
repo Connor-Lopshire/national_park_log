@@ -16,7 +16,8 @@ React Django HTML CSS Bulma
 5. This will bring up a browser window showing the react app, but you won't be able to log into the site or access data without running the database side of this project. To download and start the server, go to `https://github.com/Connor-Lopshire/national-park-server`, and follow the readme there.
 6. With server running you can access a pre-existing account wiht username: JoeShmoe12 and password: me or you can also register your own account
 ## ERD & wireframe 
--
+- ERD https://dbdiagram.io/d/6318af970911f91ba5578e36
+- wire frame https://sketchboard.me/vDqPudKMBbk#/
 ## User Experience
 ### Browse park and Add/Remove park from bucket list
 ### Log Visit
